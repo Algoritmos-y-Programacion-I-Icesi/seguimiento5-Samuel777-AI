@@ -12,13 +12,12 @@ import java.util.Scanner;
  */
 public class Interfaz {
 
-    // Objeto controlador del parque
     private static Parque parque = new Parque("MagicWorld");
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("=============================================");
-        System.out.println("  Bienvenido al Sistema de Gestion MagiWorld");
+        System.out.println("  Bienvenido al Sistema de Gestion MagicWorld");
         System.out.println("=============================================");
 
         int opcion = -1;
@@ -50,7 +49,7 @@ public class Interfaz {
                     generarReporteOperaciones();
                     break;
                 case 8:
-                    generarClasificacionRiesgo();
+                    generarReporteAlertasCapacidad();
                     break;
                 case 0:
                     System.out.println("\nHasta luego. Cerrando el sistema...");
@@ -71,12 +70,12 @@ public class Interfaz {
         System.out.println("\n----- MENU PRINCIPAL -----");
         System.out.println("1. Registrar Simulador Virtual");
         System.out.println("2. Registrar Juego Infantil");
-        System.out.println("3. Registrar Espectáculo Pirotécnico");
+        System.out.println("3. Registrar Espectaculo Pirotecnico");
         System.out.println("4. Registrar visitantes");
         System.out.println("5. Ver ingresos diarios");
-        System.out.println("6. Ver atracciones con clasificación de riesgo");
+        System.out.println("6. Ver atracciones con clasificacion de riesgo");
         System.out.println("7. Generar reporte de operaciones");
-        System.out.println("8. Generar reportes alertas de capacidad");
+        System.out.println("8. Generar reporte alertas de capacidad");
         System.out.println("0. Salir");
         System.out.println("--------------------------");
     }
@@ -85,87 +84,78 @@ public class Interfaz {
     // REGISTRO DE ATRACCIONES
     // ---------------------------------------------------------------
 
-    /**
-     * Solicita los datos al usuario y registra un simulador virtual.
-     */
     public static void registrarSimuladorVirtual() {
         System.out.println("\n-- Registrar Simulador Virtual --");
-        String nombre        = leerTexto("Nombre de la atracción: ");
-        String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
-        int edadMinima       = leerEntero("Edad mínima permitida (anos): ");
+        String nombre        = leerTexto("Nombre de la atraccion: ");
+        String zona          = leerTexto("Zona de ubicacion: ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
+        int edadMinima       = leerEntero("Edad minima permitida (anios): ");
         double precio        = leerDecimal("Precio de entrada ($): ");
-        int estaciones       = leerEntero("Número de estaciones");
-        boolean anteojos     = leerBooleano("Requiere anteojos? (s/n):");
+        int estaciones       = leerEntero("Numero de estaciones: ");
+        boolean anteojos     = leerBooleano("Requiere anteojos? (s/n): ");
 
-        //Completar para cumplir con el requerimiento
+        parque.agregarAtraccion(nombre, zona, capacidad, edadMinima, precio,
+                estaciones, anteojos);
+        System.out.println("Simulador registrado exitosamente.");
     }
 
-    /**
-     * Solicita los datos al usuario y registra un Juego infantil.
-     */
     public static void registrarJuegoInfantil() {
         System.out.println("\n-- Registrar Juego Infantil --");
-        String nombre        = leerTexto("Nombre de la atracción: ");
-        String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
-        int edadMinima       = leerEntero("Edad mínima permitida (años): ");
-        double precio        = leerDecimal("Precio de entrada ($): ");
-        int edadMaxima       = leerEntero("Edad máxima permitida (años): ");
-        boolean supervision  = leerBooleano("Requiere supervisión personal? (s/n):");
-
-        //Completar para cumplir con el requerimiento
-    }
-
-    /**
-     * Solicita los datos al usuario y registra una Espectácuilo pirotécnico.
-     */
-    public static void registrarEspectaculoPirotecnico() {
-        System.out.println("\n-- Registrar Espectácuilo Pirotécnico --");
         String nombre        = leerTexto("Nombre de la atraccion: ");
-        String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
-        int edadMinima       = leerEntero("Edad mínima permitida (anos): ");
+        String zona          = leerTexto("Zona de ubicacion: ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
+        int edadMinima       = leerEntero("Edad minima permitida (anios): ");
         double precio        = leerDecimal("Precio de entrada ($): ");
-        int duracion         = leerEntero("Duración en minutos: ");
-        boolean materialPeligroso    = leerBooleano("usa material peligroso? (s/n): ");
+        int edadMaxima       = leerEntero("Edad maxima permitida (anios): ");
+        boolean supervision  = leerBooleano("Tiene supervision permanente? (s/n): ");
 
-
-        //Completar para cumplir con el requerimiento
+        parque.agregarAtraccion(nombre, zona, capacidad, edadMinima, precio,
+                edadMaxima, supervision, "infantil");
+        System.out.println("Juego infantil registrado exitosamente.");
     }
 
-    /**
-     * Solicita el nombre de una atracción y registra la cantidad
-     * de visitantes recibidos durante el día.
-     */
-    public static void registrarVisitantesAtraccion() {
-        System.out.println("\n-- Registrar visitantes por día --");
+    public static void registrarEspectaculoPirotecnico() {
+        System.out.println("\n-- Registrar Espectaculo Pirotecnico --");
+        String nombre        = leerTexto("Nombre de la atraccion: ");
+        String zona          = leerTexto("Zona de ubicacion: ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
+        int edadMinima       = leerEntero("Edad minima permitida (anios): ");
+        double precio        = leerDecimal("Precio de entrada ($): ");
+        int duracion         = leerEntero("Duracion en minutos: ");
+        boolean materialPeligroso = leerBooleano("Usa material peligroso? (s/n): ");
 
-        String nombreAtraccion = leerTexto("Nombre de la atracción: ");
-        int visitantes = leerEntero("Cantidad de visitantes del día: ");
+        parque.agregarAtraccion(nombre, zona, capacidad, edadMinima, precio,
+                duracion, materialPeligroso, 0);
+        System.out.println("Espectaculo pirotecnico registrado exitosamente.");
+    }
+
+    public static void registrarVisitantesAtraccion() {
+        System.out.println("\n-- Registrar visitantes por dia --");
+        String nombreAtraccion = leerTexto("Nombre de la atraccion: ");
+        int visitantes = leerEntero("Cantidad de visitantes del dia: ");
+
         if (visitantes < 0) {
             System.out.println("La cantidad de visitantes no puede ser negativa.");
-
-        parque.registrarVisitantes(nombreAtraccion, visitantes);
+        } else {
+            parque.registrarVisitantes(nombreAtraccion, visitantes);
         }
     }
 
-    public static void mostrarIngresosDiarios(){
+    public static void mostrarIngresosDiarios() {
         parque.mostrarIngresosDiarios();
     }
 
-    public static void mostrarAtraccionesClasifRiesgo(){
+    public static void mostrarAtraccionesClasifRiesgo() {
         parque.mostrarAtraccionesClasifRiesgo();
     }
 
-    public static void generarReporteOperaciones(){
+    public static void generarReporteOperaciones() {
         parque.generarReporteOperaciones();
     }
 
-    public static void generarReporteAlertasCapacidad(){
+    public static void generarReporteAlertasCapacidad() {
         parque.generarReporteAlertasCapacidad();
     }
-
 
     // ---------------------------------------------------------------
     // METODOS DE LECTURA (utilitarios de consola)
@@ -185,7 +175,7 @@ public class Interfaz {
                 valor = Integer.parseInt(scanner.nextLine());
                 valido = true;
             } catch (NumberFormatException e) {
-                System.out.println("Por favor ingrese un número entero válido.");
+                System.out.println("Por favor ingrese un numero entero valido.");
             }
         }
         return valor;
@@ -209,7 +199,6 @@ public class Interfaz {
     public static boolean leerBooleano(String mensaje) {
         System.out.print(mensaje);
         String respuesta = scanner.nextLine().trim().toLowerCase();
-        return respuesta.equals("s") || respuesta.equals("si") || respuesta.equals("sí");
+        return respuesta.equals("s") || respuesta.equals("si") || respuesta.equals("si");
     }
 }
-
